@@ -1,0 +1,33 @@
+name: inventory
+
+services:
+  api:
+    build: .
+    image: inventory-api:1.1.0
+    environment:
+      SECRET_KEY: ${SECRET_KEY:?SECRET_KEY must be set in .env}
+      API_KEY: ${API_KEY:?API_KEY must be set in .env}
+      APP_VERSION: "1.1.0"
+      LOG_LEVEL: INFO
+      TRUST_PROXY: "true"
+      GUNICORN_WORKERS: "2"
+      GUNICORN_THREADS: "2"
+    volumes:
+      - inventory-data:/data
+    expose:
+      - "8000"
+    restart: unless-stopped
+
+  proxy:
+    image: nginx:1.27-alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx:/etc/nginx/conf.d:ro
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  inventory-data:

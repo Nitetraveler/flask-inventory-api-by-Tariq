@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.coverage
+instance/
+tests/
+warmup/
+*.db
+.env
+prod.env
+run-prod.sh

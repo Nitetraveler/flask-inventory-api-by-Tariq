@@ -1,0 +1,21 @@
+# Python virtual environment
+.venv/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+
+# Pytest and coverage output
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Local secrets - never commit
+.env
+.env.*
+!.env.example
+prod.env
+
+# Generated reports
+artifacts/reports/
